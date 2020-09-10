@@ -1,0 +1,53 @@
+<idea-plugin>
+    <id>SmartCloudYapiUpload</id>
+    <name>API docs upload to Yapi</name>
+    <vendor email="1634753825@qq.com" url="github.com/smart-cloud">smart-cloud</vendor>
+
+    <description><![CDATA[
+      一个快速上传HTTP接口文档到YApi的IntelliJ IDEA小插件<br>
+      <p><b>使用方法见<a href="https://github.com/smart-cloud/yapi_upload">使用指南</a></b></p>
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="172.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <applicationService
+                serviceImplementation="org.smartframework.cloud.yapi.upload.plugin.config.YApiApplicationPersistentState"/>
+        <projectConfigurable
+                instance="org.smartframework.cloud.yapi.upload.plugin.config.YApiSearchableConfigurable"/>
+        <projectService
+                serviceImplementation="org.smartframework.cloud.yapi.upload.plugin.config.YApiProjectPersistentState"/>
+        <defaultLiveTemplatesProvider
+                implementation="org.smartframework.cloud.yapi.upload.plugin.template.YApiTemplateProvider"/>
+        <liveTemplateContext
+                implementation="org.smartframework.cloud.yapi.upload.plugin.template.YApiTemplateContextType"/>
+    </extensions>
+
+    <project-components>
+        <component>
+            <implementation-class>org.smartframework.cloud.yapi.upload.plugin.component.YApiInitComponent
+            </implementation-class>
+        </component>
+    </project-components>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="SmartCloudYapiUpload"
+                class="org.smartframework.cloud.yapi.upload.plugin.action.YApiUploadAction"
+                text="上传到YApi"
+                description="YApi文档上传插件">
+            <add-to-group group-id="EditorLangPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift alt u"/>
+        </action>
+    </actions>
+
+</idea-plugin>
